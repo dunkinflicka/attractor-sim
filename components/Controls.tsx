@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { AttractorConfig, Parameter } from '../types';
-import { Play, Pause, RotateCcw, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Play, Pause, RotateCcw, ChevronRight, ChevronLeft, X } from 'lucide-react';
 import { ATTRACTORS } from '../constants';
 
 interface ControlsProps {
@@ -67,7 +67,7 @@ const Controls: React.FC<ControlsProps> = ({
         {/* Mobile/Desktop Width Variable Helper */}
         <style>{`
           :root {
-            --sidebar-width: 100%;
+            --sidebar-width: 85vw;
           }
           @media (min-width: 640px) {
             :root {
@@ -79,17 +79,24 @@ const Controls: React.FC<ControlsProps> = ({
         {/* Toggle Button - Attached to the left side of the sidebar */}
         <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="absolute top-1/2 -left-8 transform -translate-y-1/2 bg-black/60 backdrop-blur-md border border-r-0 border-white/10 p-2 rounded-l-md text-gray-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none"
+            className="absolute top-1/2 -left-8 md:-left-8 transform -translate-y-1/2 bg-black/60 backdrop-blur-md border border-r-0 border-white/10 p-2 rounded-l-md text-gray-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none w-8 h-12 flex items-center justify-center md:h-auto"
             title={isCollapsed ? "Expand Settings" : "Collapse Settings"}
         >
             {isCollapsed ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
         </button>
 
-      <div className="h-full w-full flex flex-col gap-6 overflow-y-auto p-6 pb-24">
+      <div className="h-full w-full flex flex-col gap-6 overflow-y-auto p-5 pb-24 md:p-6">
         
         {/* Header / Title */}
         <div className="flex items-center justify-between">
              <span className="text-xs font-bold text-white tracking-widest uppercase">Configuration</span>
+             {/* Mobile Close Button */}
+             <button 
+               onClick={() => setIsCollapsed(true)}
+               className="md:hidden p-1 text-gray-400 hover:text-white transition-colors"
+             >
+               <X size={16} />
+             </button>
         </div>
 
         {/* Palette / Attractor Selection */}

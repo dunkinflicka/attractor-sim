@@ -1,0 +1,5 @@
+{
+  "name": "Chaos Explorer",
+  "description": "A cinematic, real-time visualization of strange attractors, chaotic systems, and fractals powered by React.",
+  "requestFramePermissions": []
+}

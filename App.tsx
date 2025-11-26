@@ -63,7 +63,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-screen bg-black text-white overflow-hidden relative font-sans selection:bg-white/20">
+    <div className="w-screen h-[100dvh] bg-black text-white overflow-hidden relative font-sans selection:bg-white/20">
       
       {/* Visual Effects Layer */}
       <div className="grain-overlay"></div>
@@ -83,16 +83,16 @@ const App: React.FC = () => {
       </div>
 
       {/* Cinematic Title Overlay (Bottom Left) - Responsive Scaling */}
-      <div className="absolute bottom-8 left-6 md:bottom-12 md:left-12 z-10 pointer-events-none max-w-[90%] md:max-w-2xl select-none flex flex-col items-start text-left">
+      <div className="absolute bottom-12 left-5 md:bottom-12 md:left-12 z-10 pointer-events-none w-auto max-w-[85%] md:max-w-2xl select-none flex flex-col items-start text-left">
          {/* Title and Attractor Label: Unified sizing logic (same font size) scaled for mobile */}
-         <h1 className="text-xl md:text-4xl font-[300] tracking-[0.2em] text-white/90 uppercase mb-4 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
+         <h1 className="text-lg md:text-4xl font-[300] tracking-[0.15em] md:tracking-[0.2em] text-white/90 uppercase mb-3 md:mb-4 leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>
             {activeAttractor.name.replace(' Attractor', '').replace(' System', '')}
             <span className="font-bold ml-2 md:ml-3 opacity-50">ATTRACTOR</span>
          </h1>
          
          {/* Glass Equation Box: High Blur + Medium Opacity to see colors but block shapes - Scaled for Mobile */}
-         <div className="bg-black/50 backdrop-blur-3xl p-4 md:p-8 rounded-md border border-white/10 w-[280px] md:w-[500px] min-h-[60px] md:h-[100px] flex items-center shadow-2xl opacity-50 transition-all duration-300">
-            <pre className="text-[10px] md:text-xs font-mono text-gray-200 whitespace-pre-wrap leading-relaxed w-full">
+         <div className="bg-black/50 backdrop-blur-3xl p-3 md:p-8 rounded-md border border-white/10 w-auto max-w-full md:w-[500px] flex items-center shadow-2xl opacity-50 transition-all duration-300">
+            <pre className="text-[9px] md:text-xs font-mono text-gray-200 whitespace-pre-wrap leading-relaxed w-full break-words">
                {activeAttractor.equationDescription}
             </pre>
          </div>

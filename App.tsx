@@ -51,7 +51,6 @@ const App: React.FC = () => {
       [key]: value
     }));
   };
-
   const handleReset = () => {
      const newParams: Record<string, number> = {};
     Object.keys(activeAttractor.defaultParams).forEach(key => {

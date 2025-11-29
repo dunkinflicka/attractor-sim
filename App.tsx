@@ -18,11 +18,11 @@ const App: React.FC = () => {
   });
 
   const [isPlaying, setIsPlaying] = useState(true);
-  const [simulationSpeed, setSimulationSpeed] = useState(0.025); // Slow default for detailed observation
+  const [simulationSpeed, setSimulationSpeed] = useState(0.015); // Slow default for detailed observation
   
   // Visual States - Tuned for "Crystal Clear 3D" look
   const [maxTrailLength, setMaxTrailLength] = useState(30000); 
-  const [particleSize, setParticleSize] = useState(1.5); 
+  const [particleSize, setParticleSize] = useState(2.5); 
   const [particleOpacity, setParticleOpacity] = useState(0.5); 
 
   // Camera / Viewport States

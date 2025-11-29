@@ -240,84 +240,29 @@ export const ATTRACTORS: Record<string, AttractorConfig> = {
       };
     }
   },
-  ikeda: {
-    id: 'ikeda',
-    name: 'Ikeda Map',
-    description: 'A discrete-time dynamical system that models light circulating in a non-linear optical resonator.',
-    equationDescription: 't = 0.4 - 6/(1 + x² + y²)\nx_next = 1 + u(x cos t - y sin t)\ny_next = u(x sin t + y cos t)',
-    visualizationType: 'map',
-    scale: 0.8,
-    center: { x: 0, y: 0, z: 0 },
-    speedMultiplier: 1.0, 
-    startPoint: { x: 0, y: 0, z: 0 },
-    color: '#a8a29e',
-    colors: ['#000000', '#1c1917', '#44403c', '#78716c', '#d6d3d1', '#f5f5f4'], // Desert Sand: Void -> Dark Earth -> Taupe -> Beige -> Sand -> Off White
-    defaultParams: {
-      u: { name: 'u', value: 0.9, min: 0.6, max: 1.0, step: 0.01, description: 'Parameter u' }
-    },
-    map: (p: Point3D, params: Record<string, number>) => {
-      const u = params.u;
-      const t = 0.4 - 6 / (1 + p.x * p.x + p.y * p.y);
-      return {
-        x: 1 + u * (p.x * Math.cos(t) - p.y * Math.sin(t)),
-        y: u * (p.x * Math.sin(t) + p.y * Math.cos(t)),
-        z: p.z 
-      };
-    }
-  },
-  henonHeiles: {
-    id: 'henonHeiles',
-    name: 'Hénon-Heiles System',
-    description: 'A Hamiltonian system originally describing the motion of a star around a galactic center.',
-    equationDescription: 'dx/dt = px, dy/dt = py\ndpx/dt = -x - 2xy\ndpy/dt = -y - (x² - y²)',
+  cygnus: {
+    id: 'cygnus',
+    name: 'Cygnus X-1 ',
+    description: 'A stellar-mass black hole binary system. The accretion disk is represented by the Burke-Shaw attractor, creating a violent, twisting funnel of superheated plasma.',
+    equationDescription: 'dx/dt = -s(x + y)\ndy/dt = -y - sxz\ndz/dt = sxy + v',
     visualizationType: 'attractor',
-    scale: 0.4, 
+    scale: 0.8, // Enormous zoom as requested
     center: { x: 0, y: 0, z: 0 },
-    speedMultiplier: 0.5, 
-    startPoint: { x: 0, y: 0, z: 0, w: 0.3 }, 
-    color: '#991b1b',
-    colors: ['#000000', '#200505', '#450a0a', '#7f1d1d', '#991b1b', '#d1d5db'], // Crimson Ghost: Void -> Very Dark Red -> Blood Red -> Dark Red -> Red -> Grey
+    speedMultiplier: 0.5,
+    startPoint: { x: 0.1, y: 0.1, z: 0.1 },
+    color: '#818cf8',
+    colors: ['#000000', '#0f172a', '#1e1b4b', '#312e81', '#4f46e5', '#818cf8', '#c7d2fe', '#ffffff'], // Deep Blue/Violet Singularity
     defaultParams: {
-      energy: { name: 'E (Scaling)', value: 1.0, min: 0.1, max: 2.0, step: 0.1, description: 'Scaling Factor' }
+      s: { name: 's', value: 10, min: 1, max: 20, step: 0.1, description: 'Scale/Speed' },
+      v: { name: 'v', value: 4.272, min: 0, max: 10, step: 0.001, description: 'Asymmetry' },
     },
     ode: (p: Point3D, params: Record<string, number>) => {
-      const px = p.z;
-      const py = p.w || 0;
+      const { s, v } = params;
       return {
-        dx: px,
-        dy: py,
-        dz: -p.x - 2 * p.x * p.y, 
-        dw: -p.y - (p.x * p.x - p.y * p.y) 
+        dx: -s * (p.x + p.y),
+        dy: -p.y - s * p.x * p.z,
+        dz: s * p.x * p.y + v
       };
-    }
-  },
-  thorneZytkow: {
-    id: 'thorneZytkow',
-    name: 'Gumowski-Mira Map',
-    description: 'A map generating star-like or galaxy structures often associated with astrophysical chaos.',
-    equationDescription: 'x_next = y + ay(1 - 0.05y²) + f(x)\ny_next = -x + f(x_next)',
-    visualizationType: 'map',
-    scale: 8.0, 
-    center: { x: -1, y: 0, z: 0 },
-    speedMultiplier: 2.0,
-    startPoint: { x: 1, y: 1, z: 0 },
-    color: '#b91c1c',
-    colors: ['#000000', '#2d1810', '#7c2d12', '#b91c1c', '#fdba74', '#ffffff'], // Baked Clay: Void -> Dark Clay -> Rust -> Terra Cotta -> Light Peach -> White
-    defaultParams: {
-      a: { name: 'a', value: 0.009, min: -0.01, max: 0.02, step: 0.0001, description: 'Parameter a' },
-      mu: { name: 'μ', value: -0.48, min: -1, max: 1, step: 0.01, description: 'Parameter mu' },
-    },
-    map: (p: Point3D, params: Record<string, number>) => {
-      const { a, mu } = params;
-      const f = (val: number) => mu * val + (2 * (1 - mu) * val * val) / (1 + val * val);
-      
-      const x_n = p.x;
-      const y_n = p.y;
-      
-      const x_next = y_n + a * y_n * (1 - 0.05 * y_n * y_n) + f(x_n);
-      const y_next = -x_n + f(x_next);
-      
-      return { x: x_next, y: y_next, z: 0 };
     }
   }
 };
